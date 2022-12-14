@@ -1,0 +1,32 @@
+button{
+    background-color: #1e88e5;
+    color: #fff;
+    outline: none;
+    border: 1px solid #1e88e5;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    &:hover{
+        background-color: #fff;
+        color: #1e88e5;
+        border: 1px solid #1e88e5;
+    }
+}
+
+
+.navbarColor{
+    background-color: #1e88e5;
+    color: #fff;
+    a{
+        color: #fff;
+    }
+}
+
+form{
+    padding: 40px;
+
+
+    .formCard{
+        border: none;
+        box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+    }
+}

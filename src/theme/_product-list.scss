@@ -1,0 +1,118 @@
+@import "src/theme/search";
+@import "src/theme/product-card";
+$btnCartColor: #E1E1E1;
+
+.left-sidenav {
+  padding-right: 14px;
+}
+
+.main-view {
+  width: 100%;
+}
+
+.top-banner {
+  margin-bottom: 16px;
+}
+
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+}
+
+.pagination-container {
+  width: 100%;
+  margin-top: 25px;
+}
+
+h2, p {
+  margin: 0;
+}
+
+
+/**
+LEFT FILTER AREA
+ */
+.filter-title {
+  width: 100%;
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 15px;
+}
+
+.card-filter {
+  width: 100%;
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 15px;
+
+  .example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+
+  .example-radio-button {
+    margin: 5px;
+  }
+}
+
+.mobile-sort-area {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  .actions {
+    button {
+      background: #9FA2FF;
+    }
+  }
+}
+
+.header-mobile {
+  position: absolute;
+  z-index: 9999;
+  background: #D6D8FF;
+  width: 100%;
+  margin: 0;
+  top: 0;
+  right: 0;
+  text-align: end;
+  padding: 10px 20px;
+}
+.side-filter {
+  margin-top: 50px;
+}
+
+.radio-button-span {
+  white-space: normal;
+}
+
+
+/**
+RESPONSIVE
+ */
+
+@media only screen and (max-width: 599px) {
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 12px;
+  }
+
+}
+
+@media only screen and (max-width: 960px) {
+  .main-view {
+    padding: 0 12px;
+  }
+
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1100px) {
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 12px;
+  }
+}
+

@@ -1,0 +1,158 @@
+@import "variables";
+
+.card {
+  //width: 100%;
+  //max-width: 280px;
+  // height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  position: relative;
+
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .discount {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #FD3537;
+    padding: 4px 8px;
+
+    p {
+      font-family: $font-en-primary;
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+    }
+  }
+}
+
+
+.product-card {
+
+  &:focus {
+    outline: none;
+  }
+  cursor: pointer;
+  .img-thumb {
+    width: 140px;
+    height: auto;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .desc {
+    text-align: center;
+    margin-top: 12px;
+
+    .title {
+      color: #000000;
+      font-size: 16px;
+    }
+
+    .author {
+      color: #707070;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  }
+
+  .price {
+    margin: 16px 0;
+
+    .book-price {
+      font-size: 18px;
+      font-family: 'Open Sans', sans-serif;
+
+      .original-price {
+        text-decoration: line-through;
+        color: #FF3737;
+      }
+
+      .update-price {
+        margin-left: 12px;
+        color: #02C449;
+        font-weight: bold;
+      }
+
+    }
+
+    span {
+
+    }
+  }
+
+  .action {
+    margin-top: 8px;
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .hr {
+    width: 85%;
+    height: 1px;
+    background: #cccccc;
+    margin: 0 auto;
+  }
+
+  .action-admin {
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+
+}
+
+
+@media only screen and (max-width: 599px) {
+
+  .product-card {
+
+    .img-thumb {
+      width: 100px;
+      height: auto;
+    }
+
+    .desc {
+      .title {
+        font-size: 14px;
+      }
+      .author {
+        font-size: 13px;
+      }
+    }
+
+    .price {
+      margin: 12px 0;
+      .book-price {
+        font-size: 16px;
+      }
+    }
+
+    .action {
+      margin-top: 8px;
+      .btn {
+        padding: 9px 20px;
+        font-size: 13px;
+      }
+    }
+
+  }
+}
