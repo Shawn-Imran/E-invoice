@@ -8,34 +8,41 @@
             <div class="col-md-8">
                 <div class="card border-secondary formCard">
                     <div class="card-body">
-                        <h4 class="card-title">Customer Details</h4>
+                        <h3 class="card-title"><strong>Customer Details</strong></h3>
+                        <br>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name"
+                                    <label for="name">Seller Name</label>
+                                    <input type="text" class="form-control" name="sellerName" id="name"
                                         [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
-                                        [(ngModel)]="invoice.customerName" #CustName="ngModel" required>
+                                        [(ngModel)]="invoice.sellerName" #SellerName="ngModel" required>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <textarea class="form-control" name="address" id="address" row="3"
-                                        [ngClass]="{'is-invalid': invoiceForm.submitted && Address.invalid}"
-                                        [(ngModel)]="invoice.address" #Address="ngModel" required></textarea>
+                                    <label for="vatRegNumber">VAT Registration Number</label>
+                                    <input type="text" class="form-control" name="vatRegNumber" id="vatRegNumber"
+                                        [ngClass]="{'is-invalid': invoiceForm.submitted && vatRegNumber.invalid}"
+                                        [(ngModel)]="invoice.vatRegNumber" #vatRegNumber="ngModel" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address">Invoice Type</label>
+                                    <select class="form-control" name="invoiceType" id="invoiceType"
+                                        [(ngModel)]="invoice.invoiceType" required>
+                                        <option value="GST">GST</option>
+                                        <option value="Non-GST">Non-GST</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="email">Email ID</label>
-                                    <input type="email" class="form-control" name="email" id="email"
-                                        [(ngModel)]="invoice.email" required>
+                                    <label for="name">Customer Name</label>
+                                    <input type="text" class="form-control" name="customerName" id="name"
+                                        [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
+                                        [(ngModel)]="invoice.customerName" #CustName="ngModel" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="contactNo">Contact No.</label>
-                                    <input type="number" class="form-control" name="contactNo" id="contactNo"
-                                        [ngClass]="{'is-invalid': invoiceForm.submitted && ContactNo.invalid}"
-                                        [(ngModel)]="invoice.contactNo" #ContactNo="ngModel" required>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -48,10 +55,11 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th width="25%">Product</th>
-                                        <th width="25%">Price</th>
-                                        <th width="25%">Quantity</th>
-                                        <th width="25%">Amount</th>
+                                        <th width="20%">Product</th>
+                                        <th width="20%">Price</th>
+                                        <th width="20%">Quantity</th>
+                                        <th width="20%">Vat</th>
+                                        <th width="20%">Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,7 +81,19 @@
                                                 [(ngModel)]="product.qty" #ProductQty="ngModel" required>
                                         </td>
                                         <td>
-                                            {{product.price * product.qty || ''}}
+                                            <input type="number" class="form-control" name="vat{{i}}" id="vat"
+                                                [ngClass]="{'is-invalid': invoiceForm.submitted && ProductVat.invalid}"
+                                                [(ngModel)]="product.vat" #ProductVat="ngModel" required>
+                                        </td>
+
+                                        <td>
+                                            {{product.price * product.qty + product.price * product.qty * product.vat / 100 || ''}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right"><button class="total" (click)="gettotal()">Total</button></td>
+                                        <td>
+                                            {{total}}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -81,28 +101,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="card border-secondary mt-2 formCard">
-                    <div class="card-body">
-                        <h4 class="card-title">Additional Details</h4>
-                        <div class="form-group">
-                            <textarea class="form-control" name="additionalDetails" rows="3"
-                                [(ngModel)]="invoice.additionalDetails"></textarea>
-                        </div>
-                    </div>
-                </div>
+               
 
             </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-lg btn-block"
-                    (click)="invoiceForm.valid ? generatePDF('download') : ''">Download Invoice</button>
-                <button type="button" class="btn  btn-lg btn-block"
-                    (click)="invoiceForm.valid ? generatePDF('print') : ''">Print
-                    Invoice</button>
-                <button type="submit" class="btn  btn-lg btn-block"
-                    (click)="invoiceForm.valid ? generatePDF() : ''">Open
-                    Invoice</button>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-lg btn-block"
+                        (click)="invoiceForm.valid ? generatePDF('download') : ''">Download Invoice</button>
+                    <button type="button" class="btn  btn-lg btn-block"
+                        (click)="invoiceForm.valid ? generatePDF('print') : ''">Print
+                        Invoice</button>
+                    <button type="submit" class="btn  btn-lg btn-block"
+                        (click)="invoiceForm.valid ? generatePDF() : ''">Open
+                        Invoice</button>
+                    <button type="button" class="btn  btn-lg btn-block" (click)="getqr()">
+                        Generate QR Code
+                    </button>
+                    
+                    <div class="qr-code">
+                        <qr-code [value]="qrInfo" size="350"></qr-code>
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
 </form>
 

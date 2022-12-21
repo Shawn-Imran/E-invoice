@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { InvoiceRoutingModule } from './invoice-routing.module';
 import { InvoiceComponent } from './invoice.component';
 import { FormsModule } from '@angular/forms';
+import { QRCodeModule } from 'angular2-qrcode';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     InvoiceRoutingModule,
-    FormsModule
+    FormsModule,
+    QRCodeModule
   ]
 })
 export class InvoiceModule { }

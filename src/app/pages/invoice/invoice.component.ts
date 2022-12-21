@@ -8,16 +8,25 @@ class Product{
   name: string;
   price: number;
   qty: number;
+  vat: number;
+  subtotal: number;
 }
 class Invoice{
+  sellerName: string;
+  vatRegNumber: string;
   customerName: string;
-  address: string;
-  contactNo: number;
-  email: string;
+  invoiceType: string;
+  paymentReference: string;
+  dn: string;
+  po: string;
+  gr: string;
+  paymentMood: string;
+  receipt: string;
+  invoiceDate: Date;
+  supplyDate: Date;
+  dueDate: Date;
 
   products: Product[] = [];
-  additionalDetails: string;
-
   constructor(){
     // Initially one empty product row we will show
     this.products.push(new Product());
@@ -32,11 +41,35 @@ class Invoice{
 })
 export class InvoiceComponent implements OnInit {
 
+
+  hash: string = '';
+  hashdigest = 'sha256';
+  cryptoStampSignature: string = '';
+  publicKey: string = '';
+  privateKey: string = '';
+
+  
+
+  total: number
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    // this.gettotal();
+    // console.log("total",this.total);
+    
   }
 
+
+gettotal(){
+  this.total=0;
+  for (const key of this.invoice.products) {
+    this.total += key.price * key.qty + key.price * key.qty * key.vat / 100;
+    //number to string
+    this.total = Number(this.total.toFixed(2));
+    
+  }
+  console.log(this.total);
+}
 
   invoice = new Invoice();
 
@@ -44,7 +77,7 @@ export class InvoiceComponent implements OnInit {
     let docDefinition = {
       content: [
         {
-          text: 'ELECTRONIC SHOP',
+          text: 'Smart Shop',
           fontSize: 16,
           alignment: 'center',
           color: '#047886'
@@ -68,11 +101,25 @@ export class InvoiceComponent implements OnInit {
                 text: this.invoice.customerName,
                 bold:true
               },
-              { text: this.invoice.address },
-              { text: this.invoice.email },
-              { text: this.invoice.contactNo }
+              { text: this.invoice.invoiceType }
             ],
             [
+              {
+                text: `Address: los angeles`,
+                alignment: 'right'
+              },
+              {
+                text: `Email: smartshop@gmail.com`,
+                alignment: 'right'
+              },
+              {
+                text: `Phone: 12345678901`,
+                alignment: 'right'
+              },
+              {
+                text: ` `,
+                alignment: 'right'
+              },
               {
                 text: `Date: ${new Date().toLocaleString()}`,
                 alignment: 'right'
@@ -104,13 +151,14 @@ export class InvoiceComponent implements OnInit {
           style: 'sectionHeader'
         },
         {
-            text: this.invoice.additionalDetails,
-            margin: [0, 0 ,0, 15]
-        },
-        {
           columns: [
-            [{ qr: `${this.invoice.customerName}`, fit: '50' }],
-            [{ text: 'Signature', alignment: 'right', italics: true}],
+            [{ qr: `Smart Shop
+${this.invoice.customerName}
+${this.invoice.products.map(p => ([p.name]))}
+${this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price), 0).toFixed(2)}`, fit: '100' }],
+            [{ text: 'Md. Al Mahmud Imran', alignment: 'right', italics: true},
+              { text: 'Authorized Signature', alignment: 'right', italics: true}
+            ],
           ]
         },
         {
@@ -147,5 +195,20 @@ export class InvoiceComponent implements OnInit {
 
   addProduct(){
     this.invoice.products.push(new Product());
+  }
+
+
+
+ 
+  
+  item = '';
+  qrInfo = JSON.stringify(this.item);
+
+  getqr(){
+
+
+    const qritem = "Seller name: " + this.invoice.sellerName + "\n" + "VAT Reg. No.: " + this.invoice.vatRegNumber + "\n" + "time stamp: " + new Date().toLocaleString() + "\n" + "Total Amount: " + this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price), 0).toFixed(2) + "\n" + "Vat: " + this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price * p.vat / 100), 0).toFixed(2) + "\n" + "Hash: " + "123456789" + "\n" + "Cryptographic Stam: " + "123456789" + "\n" + "Public Key: " + "123456789" + "\n" + "Private: " + "123456789" + "\n" + "Zatca Cryptographic Stamp: " + "123456789";
+    
+    this.qrInfo = JSON.stringify(qritem);
   }
 }

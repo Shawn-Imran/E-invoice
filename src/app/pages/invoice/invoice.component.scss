@@ -30,3 +30,23 @@ form{
         box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
     }
 }
+
+.total{
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #1e88e5;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.qr-code{
+    max-width: 400px !important;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+}
