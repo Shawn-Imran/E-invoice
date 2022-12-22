@@ -48,7 +48,7 @@ export class InvoiceComponent implements OnInit {
   publicKey: string = '';
   privateKey: string = '';
 
-  
+
 
   total: number
   constructor() { }
@@ -56,7 +56,7 @@ export class InvoiceComponent implements OnInit {
   ngOnInit() {
     // this.gettotal();
     // console.log("total",this.total);
-    
+
   }
 
 
@@ -66,10 +66,11 @@ gettotal(){
     this.total += key.price * key.qty + key.price * key.qty * key.vat / 100;
     //number to string
     this.total = Number(this.total.toFixed(2));
-    
+
   }
   console.log(this.total);
 }
+
 
   invoice = new Invoice();
 
@@ -199,8 +200,8 @@ ${this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price), 0).toFixed(2)
 
 
 
- 
-  
+
+
   item = '';
   qrInfo = JSON.stringify(this.item);
 
@@ -208,7 +209,7 @@ ${this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price), 0).toFixed(2)
 
 
     const qritem = "Seller name: " + this.invoice.sellerName + "\n" + "VAT Reg. No.: " + this.invoice.vatRegNumber + "\n" + "time stamp: " + new Date().toLocaleString() + "\n" + "Total Amount: " + this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price), 0).toFixed(2) + "\n" + "Vat: " + this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price * p.vat / 100), 0).toFixed(2) + "\n" + "Hash: " + "123456789" + "\n" + "Cryptographic Stam: " + "123456789" + "\n" + "Public Key: " + "123456789" + "\n" + "Private: " + "123456789" + "\n" + "Zatca Cryptographic Stamp: " + "123456789";
-    
-    this.qrInfo = JSON.stringify(qritem);
+    this.qrInfo = qritem;
+    console.log(this.qrInfo);
   }
 }

@@ -8,7 +8,7 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       {
-        path: 'invoice',
+        path: '',
         loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule),
         data: {preload: true, delay: false}
       }
