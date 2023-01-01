@@ -231,13 +231,14 @@ ${this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price), 0).toFixed(2)
     //   invoiceTotal: 511,
     //   invoiceVatTotal: 10,
     // };
-
+    const totalVat= this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price * p.vat / 100), 0).toFixed(2);
+    const totalWithVat=  this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price + p.qty * p.price * p.vat / 100), 0).toFixed(2);
 
     const _Seller = this.hex(1, this.invoice.sellerName);
     const _TaxNo = this.hex(2, "TAX-"+this.invoice.vatRegNumber);
     const _dateTime = this.hex(3, new Date().toLocaleString());
-    const _Total = this.hex(4, this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price), 0).toFixed(2));
-    const _Tax = this.hex(5, this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price * p.vat / 100), 0).toFixed(2));
+    const _Total = this.hex(4, totalWithVat);
+    const _Tax = this.hex(5, totalVat);
     var b64 = this.hexToBase64(_Seller + _TaxNo + _dateTime + _Total + _Tax);
     console.log("b64:   ",b64);
     this.qrInfo = b64;
