@@ -42,7 +42,7 @@
                                         [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
                                         [(ngModel)]="invoice.customerName" #CustName="ngModel" required>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                 </div>
-               
+
 
             </div>
                 <div class="col-md-4">
@@ -115,13 +115,6 @@
                         Invoice</button>
                     <button type="button" class="btn  btn-lg btn-block" (click)="getqr()">
                         Generate QR Code
-                    </button>
-                    <button type="button" class="btn  btn-lg btn-block" (click)="getxml()">
-                        Generate XML
-                    </button>
-                    <!-- button for generate hash -->
-                    <button type="button" class="btn  btn-lg btn-block" (click)="generateHash()">
-                        Generate Hash
                     </button>
                     
                     <div class="qr-code">
