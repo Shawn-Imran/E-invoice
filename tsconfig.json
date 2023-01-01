@@ -20,6 +20,10 @@
       "crypto": [
         "node_modules/crypto-js"
       ]
-    }
+    },
+    "types": [
+      "node"
+    ]
+    
   }
 }

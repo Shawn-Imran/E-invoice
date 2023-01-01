@@ -116,9 +116,27 @@
                     <button type="button" class="btn  btn-lg btn-block" (click)="getqr()">
                         Generate QR Code
                     </button>
+                    <button type="button" class="btn  btn-lg btn-block" (click)="getxml()">
+                        Generate XML
+                    </button>
+                    <!-- button for generate hash -->
+                    <button type="button" class="btn  btn-lg btn-block" (click)="generateHash()">
+                        Generate Hash
+                    </button>
                     
                     <div class="qr-code">
                         <qr-code [value]="qrInfo" size="350"></qr-code>
+                    </div>
+                    <br>
+                    <div>
+                        <p><strong>Public Key:</strong></p>
+                        <p>{{publicKey}}</p>
+                        <p><strong>Private Key:</strong></p>
+                        <p>{{privateKey}}</p>
+                        <p><Strong>Hash:</Strong></p>
+                        <p>{{hash}}</p>
+                        <p><Strong>Pre Processed XML:</Strong></p>
+                        <p>{{decryptedData}}</p>
                     </div>
                 </div>
             </div>

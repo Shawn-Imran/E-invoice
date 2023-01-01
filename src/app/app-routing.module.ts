@@ -22,7 +22,7 @@ const routes: Routes = [
     scrollPositionRestoration: 'enabled',
     relativeLinkResolution: 'legacy',
     // initialNavigation: 'enabled',
-    anchorScrolling: 'enabled'
+    anchorScrolling: 'enabled' 
   })],
   exports: [RouterModule],
   providers: []

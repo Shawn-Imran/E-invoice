@@ -5,6 +5,7 @@ import { InvoiceRoutingModule } from './invoice-routing.module';
 import { InvoiceComponent } from './invoice.component';
 import { FormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angular2-qrcode';
+// import { Invoice } from '@axenda/zatca';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { QRCodeModule } from 'angular2-qrcode';
     CommonModule,
     InvoiceRoutingModule,
     FormsModule,
-    QRCodeModule
+    QRCodeModule,
+    // Invoice
   ]
 })
 export class InvoiceModule { }
