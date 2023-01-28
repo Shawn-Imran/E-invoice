@@ -6,6 +6,11 @@ import JSEncrypt from 'jsencrypt';
 import { saveAs } from 'file-saver';
 import pdfMake from "pdfmake/build/pdfmake";
 
+//zatca start
+
+
+
+
 // import { Invoice } from '@axenda/zatca';
 import {Buffer} from 'buffer';
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -216,8 +221,6 @@ ${this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price), 0).toFixed(2)
   qrInfo = JSON.stringify(this.item);
 
   getqr(){
-
-
     // const qritem = "Seller name: " + this.invoice.sellerName + "\n" + "VAT Reg. No.: " + 
     // this.invoice.vatRegNumber + "\n" + "time stamp: " + new Date().toLocaleString() + "\n" + "Total Amount: " + 
     // this.invoice.products.reduce((sum, p)=> sum + (p.qty * p.price), 0).toFixed(2) + "\n" + "Vat: " + 
@@ -306,6 +309,7 @@ hexToBase64(hexstring) {
     const invoiceName = 'invoice' + datetimeStamp + '.xml';
     const blob = new Blob([this.xml_data], {type: 'text/xml'});
     saveAs(blob, invoiceName);
+    
   }
 
 
@@ -340,15 +344,15 @@ hexToBase64(hexstring) {
     let privatek = encrypt.getPrivateKey();
     let publick = encrypt.getPublicKey();
 
-const publicKeyarray = privatek.split('-----');
-// console.log("Publicarray:-",publicKeyarray);
-const privateKeyarray = privatek.split('-----');
-// console.log("Privatearray:-",privateKeyarray);
+    const publicKeyarray = privatek.split('-----');
+    // console.log("Publicarray:-",publicKeyarray);
+    const privateKeyarray = privatek.split('-----');
+    // console.log("Privatearray:-",privateKeyarray);
 
-this.publicKey = publicKeyarray[2];
-this.privateKey = privateKeyarray[2];
-console.log(this.privateKey);
-console.log(this.publicKey);
+    this.publicKey = publicKeyarray[2];
+    this.privateKey = privateKeyarray[2];
+    console.log(this.privateKey);
+    console.log(this.publicKey);
 
 
 
@@ -368,7 +372,15 @@ console.log(this.publicKey);
     // }, Buffer.from(xml)).toString("base64");
 
 
-    // const hash = encrypt.sign(xml, privateKey, 'sha256');
+    const pinvoice = {
+      sellerName: 'ورشة عيسى معتوق السعيد للألمنيوم',
+      vatRegistrationNumber: 'Tax-0123456789',
+      invoiceTimestamp: '2017-03-01T10:16:42Z',
+      invoiceTotal: 511,
+      invoiceVatTotal: 10,
+    };
+
+    // const hash = encrypt.sign(xml, this.privateKey, 'sha256');
     const prehash = crypto.AES.encrypt(xml, this.publicKey);
     console.log("Prehash:-",prehash);
     
@@ -388,6 +400,18 @@ console.log(this.publicKey);
     // const decrypted = encrypt.verify(xml, publicKey, hash, 'sha256');
     this.decryptedData = decrypted.toString(crypto.enc.Utf8);
     console.log("XML:-",this.decryptedData);
+
+
+
+
+
+
+    var newhash = crypto.HmacSHA256(pinvoice, this.privateKey).toString();
+
+    console.log("Hash:-",newhash);
+    
+    //decrypt newhash hmacsha256
+    
   }
 
 

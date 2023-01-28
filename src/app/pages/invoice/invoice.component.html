@@ -116,6 +116,9 @@
                     <button type="button" class="btn  btn-lg btn-block" (click)="getqr()">
                         Generate QR Code
                     </button>
+                    <button type="button" class="btn  btn-lg btn-block" (click)="generateHash()">
+                        hash
+                    </button>
                     
                     <div class="qr-code">
                         <qr-code [value]="qrInfo" size="350"></qr-code>
